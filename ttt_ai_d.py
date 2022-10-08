@@ -84,28 +84,6 @@ class State:
                 best_option = child
         return best_option.selected_field
     
-def debug_state(state : State):
-    current = state
-    while len(current.children) > 0:
-        i = 0
-        for ch in current.children:
-            print(i, end = ' ')
-            print(' = ', end = ' ')
-            print(ch.fields, end = ' ')
-            print(' : ', end = ' ')
-            print(ch.value)
-            i += 1
-        print('best target field :', end = ' ')
-        print(current.choose())
-        select = input()
-        current = current.children[int(select)]
-
-def ai_debug():
-    state = State(None, 0, 1, 0)
-    state.create_next_states()
-    state.calculate_value()
-    debug_state(state)
-    
 def choose_first_move(fields):
     if fields[4] == 1:
         return random.choice([0, 2, 6, 8])
@@ -127,15 +105,4 @@ def choice_ai_d(map, not_used):
     state.create_next_states()
     state.calculate_value()
     best = state.choose()
-    #print(best)
-    #debug_state(state)
     return map[best][0]
-    
-    
-def debug_choice_ai():
-    data =[[0, 1], [0, 0], [0, 0], 
-           [0, 0], [0, 1], [0, 0],
-           [0, 0], [0, 0], [0, -1]]
-    choice_ai_d(data, 0)
-        
-debug_choice_ai()
